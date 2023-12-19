@@ -22,13 +22,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('create-task-status', function (User $user) {
-            return true;
-        });
-        Gate::define('update-task-status', function (User $user) {
-            return true;
-        });
-        Gate::define('destroy-task-status', function (User $user) {
+        Gate::define('change-task-status', function (User $user) {
             return true;
         });
     }
