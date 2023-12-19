@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskStatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::resource('task_statuses', TaskStatusController::class);
+/*
+Route::get('/task_statuses', [TaskStatusController::class, 'index'])->name('task_statuses.index');
+Route::get('/task_statuses/create', [TaskStatusController::class, 'create'])->name('task_statuses.create');
+Route::post('/task_statuses', [TaskStatusController::class, 'store'])->name('task_statuses.store');
+Route::get('/task_statuses/{id}/edit', [TaskStatusController::class, 'edit'])->name('task_statuses.edit');
+Route::patch('/task_statuses', [TaskStatusController::class, 'update'])->name('task_statuses.update');
+Route::delete('/task_statuses/{id}', [TaskStatusController::class, 'destroy'])->name('task_statuses.destroy');
+//Route::get('/task_statuses/{id}', [TaskStatusController::class, 'show']);
+*/
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
