@@ -1,14 +1,15 @@
-
+@extends('layouts.app')
+@section('content')
 <form method="POST" action="{{ route('task_statuses.store') }}">
     @csrf
-<div>
+<div class="p-6">
     <x-input-label :value="__('Status Name')" />
-    <x-text-input id="name" class="block mt-1 w-full" name="name" />
+    <x-text-input id="name" class="block mt-1 max-w-7xl mx-left" name="name" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
-</div>
-<div class="flex items-center justify-end mt-4">
-<x-primary-button class="ms-3">
+        <br>
+<x-primary-button>
     {{ __('Create') }}
 </x-primary-button>
-</div>
 </form>
+</div>
+@endsection

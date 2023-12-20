@@ -1,14 +1,14 @@
-
+@extends('layouts.app')
+@section('content')
 <form method="POST" action="{{ route('task_statuses.update', $taskStatus) }}">
     @csrf
     @method('PATCH')
-<div>
+<div class="p-6">
     <x-input-label :value="__('Status Name')" />
-    <x-text-input id="name" class="block mt-1 w-full" name="name" value="{{ $taskStatus->name }}" />
+    <x-text-input id="name" class="block mt-1 max-w-7xl mx-left" value="{{ $taskStatus->name }}" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
-</div>
-<div class="flex items-center justify-end mt-4">
-<x-primary-button class="ms-3">
+<br>
+<x-primary-button>
     {{ __('Update') }}
 </x-primary-button>
 </form>
@@ -16,8 +16,9 @@
 <form method="POST" action="{{ route('task_statuses.destroy', $taskStatus) }}">
     @csrf
     @method('DELETE')
-    <x-primary-button class="ms-3">
+    <x-primary-button>
         {{ __('Delete') }}
     </x-primary-button>
-    </div>
     </form>
+</div>
+    @endsection
