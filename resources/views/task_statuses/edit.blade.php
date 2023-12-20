@@ -4,12 +4,12 @@
     @csrf
     @method('PATCH')
 <div class="p-6">
-    <x-input-label :value="__('Status Name')" />
-    <x-text-input id="name" class="block mt-1 max-w-7xl mx-left" value="{{ $taskStatus->name }}" />
+    <x-input-label :value="__('messages.statusName')" />
+    <x-text-input id="name" name="name" class="block mt-1 max-w-7xl mx-left" value="{{ $taskStatus->name }}" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 <br>
 <x-primary-button>
-    {{ __('Update') }}
+    {{ __('messages.updateButton') }}
 </x-primary-button>
 </form>
 
@@ -17,7 +17,7 @@
     @csrf
     @method('DELETE')
     <x-primary-button>
-        {{ __('Delete') }}
+        {{ __('messages.deleteButton') }}
     </x-primary-button>
     </form>
 </div>
