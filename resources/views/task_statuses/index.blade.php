@@ -3,7 +3,7 @@
 
 <div class="grid max-w-screen-xl px-4 pb-8 mx-auto mt-16">
     <div class="grid col-span-full">
-        <h1 class="mt-8">{{ __('messages.taskStatuses') }}</h1>
+        <h1 class="mt-8 mb-4">{{ __('messages.taskStatuses') }}</h1>
         @auth
         <div class="mt-6">
         <form method="GET" action="{{route('task_statuses.create')}}">
@@ -36,7 +36,7 @@
                                 {{ __('messages.statusEdit') }}
                             </a>
                             | 
-                            <a href="{{ route('task_statuses.destroy', $status) }}" class="text-red-500 hover:text-red-700" data-confirm="{{ __('messages.areYouSure') }}" data-method="delete" rel="nofollow">
+                            <a href="{{ route('task_statuses.destroy', $status) }}" class="text-red-500 hover:text-red-700" data-confirm="{{ __('messages.areYouSure') }}" data-method="delete">
                                 {{ __('messages.statusDelete') }}
                             </a>
                         </td>
