@@ -29,7 +29,7 @@
 
             <!-- Page Content -->
             <main>
-                <div class=" mx-auto max-w-10xl p-6 text-center">
+                <div class=" mx-auto max-w-10xl p-6 mt-16 text-center">
                     <!-- Your main content goes here -->
                     <h1><b>Task Manager hexlet educational project</b></h1>
                     <p>Author: Petr Dobrokhotov</p>
