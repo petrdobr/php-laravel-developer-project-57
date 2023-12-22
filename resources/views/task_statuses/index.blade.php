@@ -36,7 +36,6 @@
                                 {{ __('messages.statusEdit') }}
                             </a>
                             | 
-                            @csrf
                             <a href="{{ route('task_statuses.destroy', $status) }}" class="text-red-500 hover:text-red-700" data-confirm="{{ __('messages.areYouSure') }}" data-method="delete">
                                 {{ __('messages.statusDelete') }}
                             </a>
