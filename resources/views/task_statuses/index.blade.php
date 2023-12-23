@@ -4,6 +4,7 @@
 <div class="grid max-w-screen-xl px-4 pb-8 mx-auto mt-16">
     <div class="grid col-span-full">
         <h1 class="mt-8 mb-4">{{ __('messages.taskStatuses') }}</h1>
+            @include('flash::message')
         @auth
         <div class="mt-6">
         <form method="GET" action="{{route('task_statuses.create')}}">
