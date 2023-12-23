@@ -17,6 +17,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@rails/ujs": "^7.1.2"
+        "@rails/ujs": "^7.1.2",
+        "@sentry/react": "^7.40.0"
     }
 }
