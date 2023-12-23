@@ -9,14 +9,14 @@
         </a>
         <!-- Navigation Links -->
         <div class="justify-center">
-            <a href="{{ route('task_statuses.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                {{ __('Задачи') }}
+            <a href="{{ route('tasks.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                {{ __('messages.tasks') }}
             </a>
             <a href="{{ route('task_statuses.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                 {{ __('messages.taskStatuses') }}
             </a>
             <a href="{{ route('task_statuses.index') }}" class="ml-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                {{ __('Метки') }}
+                {{ __('messages.labels') }}
             </a>
         </div>
         <div>

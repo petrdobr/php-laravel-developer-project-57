@@ -16,7 +16,7 @@ class TaskStatusController extends Controller
 
     public function create()
     {
-        if (! Gate::allows('change-task-status')) {
+        if (! Gate::allows('change-entities')) {
             abort(403);
         }
         $taskStatus = new TaskStatus();
@@ -25,7 +25,7 @@ class TaskStatusController extends Controller
 
     public function store(Request $request)
     {
-        if (! Gate::allows('change-task-status')) {
+        if (! Gate::allows('change-entities')) {
             abort(403);
         }
         $data = $this->validate($request, [
@@ -43,7 +43,7 @@ class TaskStatusController extends Controller
 
     public function edit(TaskStatus $taskStatus)
     {
-        if (! Gate::allows('change-task-status')) {
+        if (! Gate::allows('change-entities')) {
             abort(403);
         }
         $id = $taskStatus->id;
@@ -53,7 +53,7 @@ class TaskStatusController extends Controller
 
     public function update(Request $request, TaskStatus $taskStatus)
     {
-        if (! Gate::allows('change-task-status')) {
+        if (! Gate::allows('change-entities')) {
             abort(403);
         }
         $id = $taskStatus->id;
@@ -72,7 +72,7 @@ class TaskStatusController extends Controller
 
     public function destroy(TaskStatus $taskStatus)
     {
-        if (! Gate::allows('change-task-status')) {
+        if (! Gate::allows('change-entities')) {
             abort(403);
         }
         if ($taskStatus) {
