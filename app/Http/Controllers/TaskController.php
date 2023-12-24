@@ -54,11 +54,10 @@ class TaskController extends Controller
         $data = $this->validate($request, [
             'name' => 'required|unique:tasks|min:2',
             'description' => 'min:2',
-            'status_id' => '',
-            'assigned_to_id' => '',
+            'status_id' => 'integer',
+            'assigned_to_id' => 'integer',
         ]);
-        $data['created_by_id'] = 1;
-
+        $data['created_by_id'] = $request->user()->id;
         $task = new Task();
         $task->fill($data);
         $task->save();
@@ -71,32 +70,69 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Task $task)
     {
-        //
+        return view('tasks.show', compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
-        //
+        if (! Gate::allows('change-entities')) {
+            abort(403);
+        }
+        $statuses = TaskStatus::all();
+        $users = User::all();
+
+        $statusesArray = [];
+        foreach ($statuses as $status) {
+            $statusesArray[$status->id] = $status->name;
+        }
+        $usersArray = [];
+        foreach ($users as $user) {
+            $usersArray[$user->id] = $user->name;
+        }
+        return view('tasks.edit', compact(['task', 'statusesArray', 'usersArray']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
-//
+        if (! Gate::allows('change-entities')) {
+            abort(403);
+        }
+        $id = $task->id;
+        $task = Task::findOrFail($id);
+        $data = $this->validate($request, [
+            'name' => 'required|unique:tasks,name,' . $id,
+            'description' => 'min:2',
+            'status_id' => 'integer',
+            'created_by_id' => 'integer',
+            'assigned_to_id' => 'integer',
+        ]);
+        $task->fill($data);
+        $task->save();
+
+        flash('Статус успешно изменён')->success();
+        return redirect()
+            ->route('tasks.show', $task);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Task $task)
     {
-        //
+        if (! Gate::allows('change-entities')) {
+            abort(403);
+        }
+        if ($task) {
+            $task->delete();
+        }
+        return redirect()->route('tasks.index');
     }
 }

@@ -33,7 +33,11 @@
                     <tr class="border-b border-dashed text-left">
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->status->name }}</td>
-                        <td>{{ $task->name }}</td>
+                        <td>
+                            <a href="{{ route('tasks.show', $task) }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                {{ $task->name }}
+                            </a>
+                        </td>
                         <td>{{ $task->created_by->name }}</td>
                         <td>{{ $task->assigned_to->name }}</td>
                         <td>{{ date_format($task->created_at,"d-m-Y") }}</td>
@@ -43,7 +47,7 @@
                                 {{ __('messages.taskEdit') }}
                             </a>
                             | 
-                            <a href="{{ route('task_statuses.destroy', $task) }}" class="text-red-500 hover:text-red-700" data-confirm="{{ __('messages.areYouSure') }}" data-method="delete">
+                            <a href="{{ route('tasks.destroy', $task) }}" class="text-red-500 hover:text-red-700" data-confirm="{{ __('messages.areYouSure') }}" data-method="delete">
                                 {{ __('messages.taskDelete') }}
                             </a>
                         </td>
