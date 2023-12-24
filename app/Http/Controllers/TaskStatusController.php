@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TaskStatus;
+use App\Models\Task;
 use Illuminate\Support\Facades\Gate;
 
 class TaskStatusController extends Controller
@@ -75,9 +76,16 @@ class TaskStatusController extends Controller
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
+        $tasks = Task::where('status_id', '=', $taskStatus->id)->get();
         if ($taskStatus) {
-            $taskStatus->delete();
+            if ($tasks->isEmpty()) {
+                $taskStatus->delete();
+            } else {
+                flash('CANNOT DELETE');
+                return redirect()->route('task_statuses.index');
+            }
         }
+        flash('Deleted');
         return redirect()->route('task_statuses.index');
     }
 

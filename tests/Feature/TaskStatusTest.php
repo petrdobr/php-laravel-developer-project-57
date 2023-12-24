@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\TaskStatus;
+use App\Models\Task;
 use App\Models\User;
 
 class TaskStatusTest extends TestCase
@@ -85,7 +86,9 @@ class TaskStatusTest extends TestCase
 
     public function test_task_status_can_be_deleted(): void
     {
-        $user = User::factory()->make();
+
+        //test guest cannot delete
+        $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $id = $taskStatus->id;
 
@@ -94,6 +97,7 @@ class TaskStatusTest extends TestCase
 
         $response->assertStatus(403);
 
+        //test logged in user can delete
         $response = $this
             ->actingAs($user)
             ->delete('/task_statuses/' . $id);
@@ -105,5 +109,27 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', [
             'id' => $id,
         ]);
+
+        //test status with task connected to it cannot be deleted
+        $taskStatus = TaskStatus::factory()->create();
+        $id = $taskStatus->id;
+        Task::factory()->create([
+            'status_id' => $taskStatus->id,
+            'created_by_id' => $user->id,
+            'assigned_to_id' => $user->id
+        ]);
+
+        $response = $this
+        ->actingAs($user)
+        ->delete('/task_statuses/' . $id);
+
+        $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect('/task_statuses');
+
+        $this->assertDatabaseHas('task_statuses', [
+            'name' => $taskStatus->name,
+        ]);
+
     }
 }
