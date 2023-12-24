@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\TaskStatus;
+use App\Models\Task;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory()->count(10)->create();
+        TaskStatus::factory()->count(4)->sequence(
+            ['name' => 'Выполнено'],
+            ['name' => 'В работе'],
+            ['name' => 'Архив'],
+            ['name' => 'На тестировании']
+        )->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Task::factory()->count(16)->sequence(
+            fn() => ['status_id' => rand(1, 4), 'created_by_id' => rand(1, 10), 'assigned_to_id' => rand(1,10)]
+        )->create();
+
     }
 }

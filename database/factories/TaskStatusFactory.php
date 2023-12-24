@@ -17,8 +17,7 @@ class TaskStatusFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'id' =>fake()->unique()->randomNumber(),
+            'name' => fake()->name()
         ];
     }
 }
