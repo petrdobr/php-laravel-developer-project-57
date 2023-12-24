@@ -46,10 +46,12 @@
                             <a href="{{ route('tasks.edit', $task) }}" class="text-blue-500 hover:text-blue-700">
                                 {{ __('messages.taskEdit') }}
                             </a>
+                            @can('delete-task', $task)
                             | 
                             <a href="{{ route('tasks.destroy', $task) }}" class="text-red-500 hover:text-red-700" data-confirm="{{ __('messages.areYouSure') }}" data-method="delete">
                                 {{ __('messages.taskDelete') }}
                             </a>
+                            @endcan
                         </td>
                         @endauth
                     </tr>

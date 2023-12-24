@@ -18,7 +18,7 @@ class TaskStatusTest extends TestCase
 
         $response->assertStatus(200);
 
-        $user = User::factory()->create();
+        $user = User::factory()->make();
 
         $response = $this
             ->actingAs($user)
@@ -38,7 +38,7 @@ class TaskStatusTest extends TestCase
 
         $response->assertStatus(403);
         
-        $user = User::factory()->create();
+        $user = User::factory()->make();
 
         $response = $this
             ->actingAs($user)
@@ -57,7 +57,7 @@ class TaskStatusTest extends TestCase
 
     public function test_task_status_can_be_updated(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->make();
         $taskStatus = TaskStatus::factory()->create();
         $id = $taskStatus->id;
 
@@ -85,7 +85,7 @@ class TaskStatusTest extends TestCase
 
     public function test_task_status_can_be_deleted(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->make();
         $taskStatus = TaskStatus::factory()->create();
         $id = $taskStatus->id;
 
@@ -102,7 +102,7 @@ class TaskStatusTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect('/task_statuses');
 
-                $this->assertDatabaseMissing('task_statuses', [
+        $this->assertDatabaseMissing('task_statuses', [
             'id' => $id,
         ]);
     }

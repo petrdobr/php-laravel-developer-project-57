@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\User;
+use App\Models\Task;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         Gate::define('change-entities', function (User $user) {
             return true;
+        });
+
+        Gate::define('delete-task', function (User $user, Task $task) {
+            return $user->id === $task->created_by_id;
         });
     }
 }

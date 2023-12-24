@@ -130,6 +130,11 @@ class TaskController extends Controller
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
+
+        if (! Gate::allows('delete-task', $task)) {
+            abort(403);
+        }
+
         if ($task) {
             $task->delete();
         }
