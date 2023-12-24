@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->count(10)->create();
         TaskStatus::factory()->count(4)->sequence(
-            ['name' => 'Выполнено'],
-            ['name' => 'В работе'],
-            ['name' => 'Архив'],
-            ['name' => 'На тестировании']
+            ['name' => 'новый'],
+            ['name' => 'в работе'],
+            ['name' => 'на тестировании'],
+            ['name' => 'завершен']
         )->create();
 
         Task::factory()->count(16)->sequence(
