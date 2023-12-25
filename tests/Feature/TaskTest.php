@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Task;
+use App\Models\Label;
 use App\Models\TaskStatus;
 
 class TaskTest extends TestCase
@@ -21,6 +22,7 @@ class TaskTest extends TestCase
 
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
+        $label = Label::factory()->create();
 
         $response = $this
             ->actingAs($user)
@@ -50,6 +52,7 @@ class TaskTest extends TestCase
         
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
+        $label = Label::factory()->create();
 
         $response = $this
             ->actingAs($user)
@@ -58,7 +61,8 @@ class TaskTest extends TestCase
                 'description' => 'Test Description',
                 'status_id' => $taskStatus->id,
                 'created_by_id' => $user->id,
-                'assigned_to_id' => $user->id
+                'assigned_to_id' => $user->id,
+                'labels' => $label->id,
             ]);
 
         $response
@@ -74,17 +78,21 @@ class TaskTest extends TestCase
     {
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
+        $label = Label::factory()->create();
         
         $task = Task::factory()->create([
             'status_id' => $taskStatus->id,
             'created_by_id' => $user->id,
             'assigned_to_id' => $user->id
         ]);
+        $task->labels()->attach($label->id);
+
         $id = $task->id;
 
         $response = $this
         ->patch('/tasks/' . $id, [
             'name' => 'Test Status',
+            'labels' => $label->id,
         ]);
 
         $response->assertStatus(403);
@@ -93,6 +101,7 @@ class TaskTest extends TestCase
             ->actingAs($user)
             ->patch('/tasks/' . $id, [
                 'name' => 'Test Task',
+                'labels' => $label->id,
             ]);
 
         $task->refresh();
@@ -108,12 +117,14 @@ class TaskTest extends TestCase
     {
         $creator = User::factory()->create();
         $executor = User::factory()->create();
+        $label = Label::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $task = Task::factory()->create([
             'status_id' => $taskStatus->id,
             'created_by_id' => $creator->id,
             'assigned_to_id' => $executor->id
         ]);
+        $task->labels()->attach($label->id);
         $id = $task->id;
 
         $response = $this->delete('/tasks/' . $id);
@@ -123,7 +134,10 @@ class TaskTest extends TestCase
         $response = $this->actingAs($executor)
             ->delete('/tasks/' . $id);
 
-        $response->assertStatus(403);
+        $response->assertRedirect('/tasks');
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+        ]);
 
         $response = $this->actingAs($creator)
             ->delete('/tasks/' . $id);
