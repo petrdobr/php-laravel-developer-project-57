@@ -32,7 +32,11 @@
         <p><b>
             {{ __('messages.labels') . ': ' }}
         </b><br>
-            {{ 'Here will be labels' }}
+            @foreach($labels as $label)
+             <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                    {{ $label->name }} 
+             </div>
+            @endforeach
         </p>
 </div>
 </div>

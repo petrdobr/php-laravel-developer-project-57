@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use App\Models\Label;
 use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
@@ -30,6 +31,8 @@ class TaskController extends Controller
         $task = new Task();
         $statuses = TaskStatus::all();
         $users = User::all();
+        $labels = Label::all();
+
 
         $statusesArray = [];
         foreach ($statuses as $status) {
@@ -39,8 +42,12 @@ class TaskController extends Controller
         foreach ($users as $user) {
             $usersArray[$user->id] = $user->name;
         }
+        $labelsArray = [];
+        foreach ($labels as $label) {
+            $labelsArray[$label->id] = $label->name;
+        }
 
-        return view('tasks.create', compact(['task', 'statusesArray', 'usersArray']));
+        return view('tasks.create', compact(['task', 'statusesArray', 'usersArray', 'labelsArray']));
     }
 
     /**
@@ -56,10 +63,16 @@ class TaskController extends Controller
             'status_id' => 'integer',
             'assigned_to_id' => 'integer',
         ]);
+        $this->validate($request, [
+            'labels' => 'required'
+        ]);
         $data['created_by_id'] = $request->user()->id;
         $task = new Task();
         $task->fill($data);
         $task->save();
+
+        $labelIDs = $request['labels'];
+        $task->labels()->attach($labelIDs);
 
         flash(__('messages.taskCreateSuccess'))->success();
         return redirect()
@@ -71,7 +84,8 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return view('tasks.show', compact('task'));
+        $labels = $task->labels()->get();
+        return view('tasks.show', compact('task', 'labels'));
     }
 
     /**
@@ -84,6 +98,7 @@ class TaskController extends Controller
         }
         $statuses = TaskStatus::all();
         $users = User::all();
+        $labels = Label::all();
 
         $statusesArray = [];
         foreach ($statuses as $status) {
@@ -93,7 +108,11 @@ class TaskController extends Controller
         foreach ($users as $user) {
             $usersArray[$user->id] = $user->name;
         }
-        return view('tasks.edit', compact(['task', 'statusesArray', 'usersArray']));
+        $labelsArray = [];
+        foreach ($labels as $label) {
+            $labelsArray[$label->id] = $label->name;
+        }
+        return view('tasks.edit', compact(['task', 'statusesArray', 'usersArray', 'labelsArray']));
     }
 
     /**
@@ -113,8 +132,14 @@ class TaskController extends Controller
             'created_by_id' => 'integer',
             'assigned_to_id' => 'integer',
         ]);
+        $this->validate($request, [
+            'labels' => 'required'
+        ]);
         $task->fill($data);
         $task->save();
+        $task->labels()->detach();
+        $labelIDs = $request['labels'];
+        $task->labels()->attach($labelIDs);
 
         flash(__('messages.taskEditSuccess'))->success();
         return redirect()

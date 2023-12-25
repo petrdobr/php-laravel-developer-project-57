@@ -22,6 +22,13 @@
         "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-12 block mt-1 max-w-7xl mx-left"
         ]) }}
     <br>
+    {{ Form::label('labels', __('messages.taskLabels'), ['class' => 'block font-medium text-sm text-gray-700 mt-4']) }}
+    {{ Form::select('labels[]', $labelsArray, null, [
+        "placeholder" => "",
+        "multiple" => "multiple",
+        "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-32 block mt-1 max-w-7xl mx-left"
+        ]) }}
+    <br>
     {{ Form::submit(__('messages.updateButton'), ['class'=>'inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mt-4']) }}
     {{ Form::close() }}
 </div>

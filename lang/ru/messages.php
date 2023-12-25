@@ -32,8 +32,16 @@ return [
     "taskCreatedAt"=> "Дата создания",
     "taskActions"=> "Действия",
     "taskEdit"=> "Изменить",
-    "labels"=> "Метки",
     "taskDelete"=> "Удалить",
+
+    //label messages
+    "labels"=> "Метки",
+    "createLabel"=> "Создать метку",
+    "editLabel"=> "Изменить метку",
+    "labelName"=> "Имя",
+    "labelDescription"=> "Описание",
+    "labelCreatedAt"=> "Дата создания",
+    "labelActions"=> "Действия",
 
     //button messages
     "createButton"=> "Создать",
@@ -49,4 +57,8 @@ return [
     "taskEditSuccess"=> "Задача успешно изменена",
     "taskDeleteSuccess"=> "Задача успешно удалена",
     "taskDeleteError"=> "Не удалось удалить задачу",
+    "labelCreateSuccess"=> "Метка успешно создана",
+    "labelEditSuccess"=> "Метка успешно изменена",
+    "labelDeleteSuccess"=> "Метка успешно удалена",
+    "labelDeleteError"=> "Не удалось удалить метку",
 ];
