@@ -11,7 +11,9 @@
             </a>
             @endauth
         </h2>
+        <div class="flex w-40 justify-start">
             @include('flash::message')
+        </div>
         <p><b>
             {{ __('messages.taskName') . ': ' }}
         </b>

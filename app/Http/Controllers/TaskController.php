@@ -53,7 +53,6 @@ class TaskController extends Controller
         }
         $data = $this->validate($request, [
             'name' => 'required|unique:tasks|min:2',
-            'description' => 'min:2',
             'status_id' => 'integer',
             'assigned_to_id' => 'integer',
         ]);
@@ -62,7 +61,7 @@ class TaskController extends Controller
         $task->fill($data);
         $task->save();
 
-        flash('Статус успешно создан')->success();
+        flash(__('messages.taskCreateSuccess'))->success();
         return redirect()
             ->route('tasks.index');
     }
@@ -109,7 +108,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $data = $this->validate($request, [
             'name' => 'required|unique:tasks,name,' . $id,
-            'description' => 'min:2',
+            'description' => '',
             'status_id' => 'integer',
             'created_by_id' => 'integer',
             'assigned_to_id' => 'integer',
@@ -117,7 +116,7 @@ class TaskController extends Controller
         $task->fill($data);
         $task->save();
 
-        flash('Статус успешно изменён')->success();
+        flash(__('messages.taskEditSuccess'))->success();
         return redirect()
             ->route('tasks.show', $task);
     }
@@ -132,12 +131,14 @@ class TaskController extends Controller
         }
 
         if (! Gate::allows('delete-task', $task)) {
-            abort(403);
+            flash(__('messages.taskDeleteSuccess'))->error();
+            return redirect()->route('tasks.index');
         }
 
         if ($task) {
             $task->delete();
         }
+        flash(__('messages.taskDeleteSuccess'))->success();
         return redirect()->route('tasks.index');
     }
 }

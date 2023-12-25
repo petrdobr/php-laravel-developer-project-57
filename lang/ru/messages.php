@@ -1,11 +1,14 @@
 <?php
 
 return [
+    //general messages
     "appName"=> "Менеджер Заданий",
     "logOut"=> "Выйти",
     "logIn"=> "Войти",
     "register"=> "Зарегистрироваться",
     "areYouSure"=> "Вы уверены?",
+
+    //task status messages
     "taskStatuses"=> "Статусы",
     "createStatus"=> "Создать статус",
     "editStatus"=> "Изменить статус",
@@ -14,6 +17,8 @@ return [
     "statusActions"=> "Действия",
     "statusEdit"=> "Изменить",
     "statusDelete"=> "Удалить",
+
+    //task messages
     "createTask"=> "Создать задачу",
     "editTask"=> "Изменить задачу",
     "editTaskIcon"=> "⚙",
@@ -29,7 +34,19 @@ return [
     "taskEdit"=> "Изменить",
     "labels"=> "Метки",
     "taskDelete"=> "Удалить",
+
+    //button messages
     "createButton"=> "Создать",
     "updateButton"=> "Обновить",
     "deleteButton"=> "Удалить",
+
+    //flash messages
+    "taskStatusCreateSuccess"=> "Статус успешно создан",
+    "taskStatusEditSuccess"=> "Статус успешно изменен",
+    "taskStatusDeleteSuccess"=> "Статус успешно удален",
+    "taskStatusDeleteError"=> "Не удалось удалить статус",
+    "taskCreateSuccess"=> "Задача успешно создана",
+    "taskEditSuccess"=> "Задача успешно изменена",
+    "taskDeleteSuccess"=> "Задача успешно удалена",
+    "taskDeleteError"=> "Не удалось удалить задачу",
 ];
