@@ -47,6 +47,7 @@ return [
     "createButton"=> "Создать",
     "updateButton"=> "Обновить",
     "deleteButton"=> "Удалить",
+    "applyButton"=> "Применить",
 
     //flash messages
     "taskStatusCreateSuccess"=> "Статус успешно создан",

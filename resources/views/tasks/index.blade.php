@@ -16,6 +16,24 @@
         </form>
         </div>
         @endauth
+
+        {{ Form::model($tasks, ['route' => 'tasks.index', 'method' => 'GET']) }}
+        <div class="flex">
+        {{ Form::select('filter[status_id]', $statusesArray, $lastChoise['status_id'], [
+            "placeholder" => __('messages.taskStatuses'),
+            "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-12 block max-w-7xl mx-left"
+            ]) }}
+        {{ Form::select('filter[created_by_id]', $usersArray, $lastChoise['created_by_id'], [
+            "placeholder" => __('messages.taskAuthor'),
+            "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-12 block max-w-7xl mx-left"
+            ]) }}
+        {{ Form::select('filter[assigned_to_id]', $usersArray, $lastChoise['assigned_to_id'], [
+            "placeholder" => __('messages.taskExecutor'),
+            "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-12 block max-w-7xl mx-left"
+            ]) }}
+        {{ Form::submit(__('messages.applyButton'), ['class'=>'inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150']) }}
+        </div>
+        {{ Form::close() }}
             <table class="mt-4">
                 <thead>
                     <tr class="border-b-2 border-solid border-black text-left">

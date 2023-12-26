@@ -8,16 +8,37 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\Label;
 use Illuminate\Support\Facades\Gate;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::paginate(15);
-        return view('tasks.index', compact('tasks'));
+        $statuses = TaskStatus::all();
+        $users = User::all();
+
+        $statusesArray = [];
+        foreach ($statuses as $status) {
+            $statusesArray[$status->id] = $status->name;
+        }
+
+        $usersArray = [];
+        foreach ($users as $user) {
+            $usersArray[$user->id] = $user->name;
+        }
+
+        $lastChoise = $request->input('filter') ?? [
+            'status_id' => null, 
+            'created_by_id' => null, 
+            'assigned_to_id' => null,
+        ];
+        $tasks = QueryBuilder::for(Task::class)
+        ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])
+        ->paginate(15);
+        return view('tasks.index', compact('tasks', 'statusesArray', 'usersArray', 'lastChoise'));
     }
 
     /**
