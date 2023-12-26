@@ -3,10 +3,6 @@
 return [
     //general messages
     "appName"=> "Менеджер Заданий",
-    "logOut"=> "Выйти",
-    "logIn"=> "Войти",
-    "register"=> "Зарегистрироваться",
-    "areYouSure"=> "Вы уверены?",
 
     //task status messages
     "taskStatuses"=> "Статусы",
@@ -62,4 +58,17 @@ return [
     "labelEditSuccess"=> "Метка успешно изменена",
     "labelDeleteSuccess"=> "Метка успешно удалена",
     "labelDeleteError"=> "Не удалось удалить метку",
+
+    //login and register messages
+    "email"=> "Email",
+    "password"=> "Пароль",
+    "rememberMe"=> "Запомнить меня",
+    "forgotPassword"=> "Забыли пароль?",
+    "name"=> "Имя",
+    "confirmation"=> "Подтверждение",
+    "alreadyRegistered"=> "Уже зарегистрированы?",
+    "logOut"=> "Выйти",
+    "logIn"=> "Войти",
+    "register"=> "Зарегистрироваться",
+    "areYouSure"=> "Вы уверены?",
 ];

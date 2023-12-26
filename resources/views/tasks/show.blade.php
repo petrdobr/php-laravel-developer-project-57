@@ -32,11 +32,14 @@
         <p><b>
             {{ __('messages.labels') . ': ' }}
         </b><br>
+            
+            <div class="inline-flex justify-start">
             @foreach($labels as $label)
-             <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
-                    {{ $label->name }} 
+            <div class="flex text-xs items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                @svg('label'){{ $label->name }} 
              </div>
             @endforeach
+            </div>
         </p>
 </div>
 </div>

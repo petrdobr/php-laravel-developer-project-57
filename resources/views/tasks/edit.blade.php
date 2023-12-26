@@ -26,7 +26,7 @@
         ]) }}
         <x-input-error :messages="$errors->get('assigned_to_id')" class="mt-2" />
     <br>
-    {{ Form::label('labels', __('messages.taskLabels'), ['class' => 'block font-medium text-sm text-gray-700 mt-4']) }}
+    {{ Form::label('labels', __('messages.labels'), ['class' => 'block font-medium text-sm text-gray-700 mt-4']) }}
     {{ Form::select('labels[]', $labelsArray, null, [
         "multiple" => "multiple",
         "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-32 block mt-1 max-w-7xl mx-left"
