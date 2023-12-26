@@ -99,7 +99,7 @@ class LabelController extends Controller
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
-        $tasks = $label->pivot->tasks()->get();
+        $tasks = $label->tasks;
         if ($label) {
             if ($tasks->isEmpty()) {
                 $label->delete();

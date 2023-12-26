@@ -58,20 +58,24 @@ class TaskController extends Controller
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
-        $data = $this->validate($request, [
-            'name' => 'required|unique:tasks|min:2',
-            'status_id' => 'integer',
-            'assigned_to_id' => 'integer',
-        ]);
         $this->validate($request, [
+            'name' => 'required|unique:tasks|min:2',
+            'status_id' => 'required',
+            'assigned_to_id' => 'required',
             'labels' => 'required'
         ]);
-        $data['created_by_id'] = $request->user()->id;
+        $data = [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'status_id' => $request->input('status_id'),
+            'assigned_to_id' => $request->input('assigned_to_id'),
+            'created_by_id' => $request->user()->id,
+        ];
         $task = new Task();
         $task->fill($data);
         $task->save();
 
-        $labelIDs = $request['labels'];
+        $labelIDs = $request->input('labels');
         $task->labels()->attach($labelIDs);
 
         flash(__('messages.taskCreateSuccess'))->success();
@@ -128,9 +132,9 @@ class TaskController extends Controller
         $data = $this->validate($request, [
             'name' => 'required|unique:tasks,name,' . $id,
             'description' => '',
-            'status_id' => 'integer',
+            'status_id' => 'required',
             'created_by_id' => 'integer',
-            'assigned_to_id' => 'integer',
+            'assigned_to_id' => 'required',
         ]);
         $this->validate($request, [
             'labels' => 'required'

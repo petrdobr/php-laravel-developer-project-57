@@ -5,17 +5,18 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\TaskStatus;
+use App\Models\Label;
 use App\Models\Task;
+use App\Models\TaskStatus;
 use App\Models\User;
 
-class TaskStatusTest extends TestCase
+class LabelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_task_statuses_page_is_displayed(): void
+    public function test_labels_page_is_displayed(): void
     {
-        $response = $this->get('/task_statuses');
+        $response = $this->get('/labels');
 
         $response->assertStatus(200);
 
@@ -23,18 +24,19 @@ class TaskStatusTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get('/task_statuses');
+            ->get('/labels');
 
         $response->assertOk();
     }
 
     
-    public function test_task_status_can_be_created(): void
+    public function test_labels_can_be_created(): void
     {
         //test guest cannot create
         $response = $this
-        ->post('/task_statuses', [
+        ->post('/labels', [
             'name' => 'Test Status',
+            'description' => 'Test description'
         ]);
 
         $response->assertStatus(403);
@@ -44,28 +46,29 @@ class TaskStatusTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/task_statuses', [
+            ->post('/labels', [
                 'name' => 'Test Status',
+                'description' => 'Test description'
             ]);
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/task_statuses');
+            ->assertRedirect('/labels');
 
-        $this->assertDatabaseHas('task_statuses', [
+        $this->assertDatabaseHas('labels', [
             'name' => 'Test Status',
         ]);
     }
 
-    public function test_task_status_can_be_updated(): void
+    public function test_labels_can_be_updated(): void
     {
-        //test guest cannot update
         $user = User::factory()->make();
-        $taskStatus = TaskStatus::factory()->create();
-        $id = $taskStatus->id;
+        $label = Label::factory()->create();
+        $id = $label->id;
 
+        //test guest cannot update
         $response = $this
-        ->patch('/task_statuses/' . $id, [
+        ->patch('/labels/' . $id, [
             'name' => 'Test Status',
         ]);
 
@@ -74,64 +77,66 @@ class TaskStatusTest extends TestCase
         //test user can update
         $response = $this
             ->actingAs($user)
-            ->patch('/task_statuses/' . $id, [
+            ->patch('/labels/' . $id, [
                 'name' => 'Test Status',
             ]);
 
-        $taskStatus->refresh();
+        $label->refresh();
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/task_statuses');
+            ->assertRedirect('/labels');
 
-        $this->assertSame('Test Status', $taskStatus->name);
+        $this->assertSame('Test Status', $label->name);
     }
 
-    public function test_task_status_can_be_deleted(): void
+    public function test_label_can_be_deleted(): void
     {
 
-        //test guest cannot delete
+        //test guest cannot delete label
         $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $id = $taskStatus->id;
+        $label = Label::factory()->create();
+        $id = $label->id;
 
         $response = $this
-        ->delete('/task_statuses/' . $id);
+        ->delete('/labels/' . $id);
 
         $response->assertStatus(403);
 
-        //test logged in user can delete
+        //test logged in user can delete label
         $response = $this
             ->actingAs($user)
-            ->delete('/task_statuses/' . $id);
+            ->delete('/labels/' . $id);
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/task_statuses');
+            ->assertRedirect('/labels');
 
-        $this->assertDatabaseMissing('task_statuses', [
+        $this->assertDatabaseMissing('labels', [
             'id' => $id,
         ]);
 
-        //test status with task connected to it cannot be deleted
-        $taskStatus = TaskStatus::factory()->create();
-        $id = $taskStatus->id;
-        Task::factory()->create([
-            'status_id' => $taskStatus->id,
+        //test label with task connected to it cannot be deleted
+        $label = Label::factory()->create();
+        $status = TaskStatus::factory()->create();
+        $id = $label->id;
+        $task = Task::factory()->create([
+            'status_id' => $status->id,
             'created_by_id' => $user->id,
             'assigned_to_id' => $user->id
         ]);
+        $task->labels()->attach($label->id);
 
         $response = $this
         ->actingAs($user)
-        ->delete('/task_statuses/' . $id);
+        ->delete('/labels/' . $id);
 
         $response
         ->assertSessionHasNoErrors()
-        ->assertRedirect('/task_statuses');
+        ->assertRedirect('/labels');
 
-        $this->assertDatabaseHas('task_statuses', [
-            'name' => $taskStatus->name,
+        $this->assertDatabaseHas('labels', [
+            'name' => $label->name,
         ]);
 
     }

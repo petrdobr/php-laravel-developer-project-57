@@ -30,6 +30,7 @@ class TaskTest extends TestCase
 
         $response->assertOk();
 
+        //test show page tasks/{id}
         $task = Task::factory()->create([
             'status_id' => $taskStatus->id,
             'created_by_id' => $user->id,
@@ -42,7 +43,7 @@ class TaskTest extends TestCase
     
     public function test_task_can_be_created(): void
     {
-        
+        //test guest cannot create
         $response = $this
         ->post('/tasks', [
             'name' => 'Test Status',
@@ -53,7 +54,8 @@ class TaskTest extends TestCase
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $label = Label::factory()->create();
-
+        
+        //test user can create
         $response = $this
             ->actingAs($user)
             ->post('/tasks', [
@@ -76,6 +78,7 @@ class TaskTest extends TestCase
 
     public function test_task_can_be_updated(): void
     {
+        //test guest cannot update
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $label = Label::factory()->create();
@@ -97,10 +100,14 @@ class TaskTest extends TestCase
 
         $response->assertStatus(403);
 
+        //test user can update
         $response = $this
             ->actingAs($user)
             ->patch('/tasks/' . $id, [
                 'name' => 'Test Task',
+                'status_id' => $taskStatus->id,
+                'created_by_id' => $user->id,
+                'assigned_to_id' => $user->id,
                 'labels' => $label->id,
             ]);
 
@@ -115,6 +122,7 @@ class TaskTest extends TestCase
 
     public function test_task_can_be_deleted(): void
     {
+        //test guest cannot delete
         $creator = User::factory()->create();
         $executor = User::factory()->create();
         $label = Label::factory()->create();
@@ -131,6 +139,7 @@ class TaskTest extends TestCase
 
         $response->assertStatus(403);
 
+        //test executor cannot delete (executor != creator of the task)
         $response = $this->actingAs($executor)
             ->delete('/tasks/' . $id);
 
@@ -139,6 +148,7 @@ class TaskTest extends TestCase
             'id' => $task->id,
         ]);
 
+        //test creator can delete
         $response = $this->actingAs($creator)
             ->delete('/tasks/' . $id);
 
