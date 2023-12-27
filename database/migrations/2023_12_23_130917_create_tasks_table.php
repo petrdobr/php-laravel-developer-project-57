@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('description')->nullable();
-            $table->string('created_by_id');
+            $table->bigInteger('created_by_id');
             $table->foreign('created_by_id')->references('id')->on('users');
-            $table->string('assigned_to_id');
+            $table->bigInteger('assigned_to_id');
             $table->foreign('assigned_to_id')->references('id')->on('users');
-            $table->string('status_id');
+            $table->bigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('task_statuses');
             $table->timestamps();
         });

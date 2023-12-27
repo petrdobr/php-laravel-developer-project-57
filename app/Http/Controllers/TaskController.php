@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Label;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
@@ -22,7 +23,7 @@ class TaskController extends Controller
 
         $statusesArray = [];
         foreach ($statuses as $status) {
-            $statusesArray[(string)$status->id] = $status->name;
+            $statusesArray[$status->id] = $status->name;
         }
 
         $usersArray = [];
@@ -36,7 +37,11 @@ class TaskController extends Controller
             'assigned_to_id' => null,
         ];
         $tasks = QueryBuilder::for(Task::class)
-            ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])->paginate(15);
+            ->allowedFilters([
+                AllowedFilter::exact('status_id'), 
+                AllowedFilter::exact('created_by_id'), 
+                AllowedFilter::exact('assigned_to_id'),
+            ])->paginate(15);
         return view('tasks.index', compact('tasks', 'statusesArray', 'usersArray', 'lastChoise'));
     }
 
