@@ -36,8 +36,7 @@ class TaskController extends Controller
             'assigned_to_id' => null,
         ];
         $tasks = QueryBuilder::for(Task::class)
-        ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])
-        ->paginate(15);
+            ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])->get();
         return view('tasks.index', compact('tasks', 'statusesArray', 'usersArray', 'lastChoise'));
     }
 
