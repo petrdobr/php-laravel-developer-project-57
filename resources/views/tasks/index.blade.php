@@ -78,6 +78,7 @@
                     @endforeach
                 </tbody></table>
                 <div class="mt-2">
+                    {{ $tasks->links() }}
                 </div>
 </div>
 </div>

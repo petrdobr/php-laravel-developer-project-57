@@ -22,7 +22,7 @@ class TaskController extends Controller
 
         $statusesArray = [];
         foreach ($statuses as $status) {
-            $statusesArray[$status->id] = $status->name;
+            $statusesArray[(string)$status->id] = $status->name;
         }
 
         $usersArray = [];
@@ -36,7 +36,7 @@ class TaskController extends Controller
             'assigned_to_id' => null,
         ];
         $tasks = QueryBuilder::for(Task::class)
-            ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])->get();
+            ->allowedFilters(['status_id', 'created_by_id', 'assigned_to_id'])->paginate(15);
         return view('tasks.index', compact('tasks', 'statusesArray', 'usersArray', 'lastChoise'));
     }
 
