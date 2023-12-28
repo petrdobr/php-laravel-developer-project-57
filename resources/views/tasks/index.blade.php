@@ -20,7 +20,7 @@
         {{ Form::model($tasks, ['route' => 'tasks.index', 'method' => 'GET']) }}
         <div class="flex">
         {{ Form::select('filter[status_id]', $statusesArray, $lastChoise['status_id'], [
-            "placeholder" => __('messages.taskStatuses'),
+            "placeholder" => __('messages.taskStatus'),
             "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-12 block max-w-7xl mx-left"
             ]) }}
         {{ Form::select('filter[created_by_id]', $usersArray, $lastChoise['created_by_id'], [

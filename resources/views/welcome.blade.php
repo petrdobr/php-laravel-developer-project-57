@@ -31,10 +31,9 @@
             <main>
                 <div class=" mx-auto max-w-10xl p-6 mt-16 text-center">
                     <!-- Your main content goes here -->
-                    <h1><b>Task Manager hexlet educational project</b></h1>
-                    <p>Author: Petr Dobrokhotov</p>
-                    <p>GitHub Repository: </p>
-                    <p>About:</p>
+                    <h1><b>header</b></h1>
+                    <p>Привет от Хекслета!</p>
+                    <p>Это простой менеджер задач на Laravel</p>
                 </div>
             </main>
         </div>
