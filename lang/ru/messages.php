@@ -70,7 +70,7 @@ return [
     "alreadyRegistered"=> "Уже зарегистрированы?",
     "logOut"=> "Выйти",
     "logIn"=> "Войти",
-    "register"=> "Регистрация",
-    "register2"=> "Зарегистрировать",
+//    "register"=> "Регистрация",
+    "register"=> "Зарегистрировать",
     "areYouSure"=> "Вы уверены?",
 ];
