@@ -115,7 +115,7 @@ class TaskTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/tasks/' . $id);
+            ->assertRedirect('/tasks');
 
         $this->assertSame('Test Task', $task->name);
     }

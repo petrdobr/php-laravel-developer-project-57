@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\TaskStatus;
 use App\Models\Task;
@@ -17,6 +18,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->count(10)->create();
+        User::factory()->create([
+            'name' => 'test',
+            'email' => 'test@t.t',
+            'password' => Hash::make('testtest'),
+        ]);
         TaskStatus::factory()->count(4)->sequence(
             ['name' => 'новая'],
             ['name' => 'завершена'],
