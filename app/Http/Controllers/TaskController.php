@@ -172,7 +172,7 @@ class TaskController extends Controller
 
         flash(__('messages.taskEditSuccess'))->success();
         return redirect()
-            ->route('tasks.show', $task);
+            ->route('tasks.index', $task);
     }
 
     /**
@@ -185,7 +185,7 @@ class TaskController extends Controller
         }
 
         if (! Gate::allows('delete-task', $task)) {
-            flash(__('messages.taskDeleteSuccess'))->error();
+            flash(__('messages.taskDeleteError'))->error();
             return redirect()->route('tasks.index');
         }
 

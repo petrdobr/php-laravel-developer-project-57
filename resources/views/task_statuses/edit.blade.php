@@ -5,7 +5,7 @@
 <form method="POST" action="{{ route('task_statuses.update', $taskStatus) }}">
     @csrf
     @method('PATCH')
-    <x-input-label :value="__('messages.statusName')" class="mt-4" />
+    <x-input-label :value="__('messages.taskName')" class="mt-4" />
     <x-text-input id="name" name="name" class="block mt-1 max-w-7xl mx-left" value="{{ $taskStatus->name }}" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 <x-primary-button class="mt-4">

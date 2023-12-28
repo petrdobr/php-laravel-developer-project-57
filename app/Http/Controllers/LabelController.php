@@ -104,11 +104,11 @@ class LabelController extends Controller
             if ($tasks->isEmpty()) {
                 $label->delete();
             } else {
-                flash(__('messages.taskStatusDeleteError'))->error();
+                flash(__('messages.labelDeleteError'))->error();
                 return redirect()->route('labels.index');
             }
         }
-        flash(__('messages.taskStatusDeleteSuccess'))->success();
+        flash(__('messages.labelDeleteSuccess'))->success();
         return redirect()->route('labels.index');
     }
 }

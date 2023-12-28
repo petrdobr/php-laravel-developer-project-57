@@ -2,13 +2,13 @@
 
 return [
     //general messages
-    "appName"=> "Менеджер Заданий",
+    "appName"=> "Менеджер Задач",
 
     //task status messages
     "taskStatuses"=> "Статусы",
     "createStatus"=> "Создать статус",
     "editStatus"=> "Изменить статус",
-    "statusName"=> "Название статуса",
+    "statusName"=> "Имя",
     "statusCreatedAt"=> "Дата создания",
     "statusActions"=> "Действия",
     "statusEdit"=> "Изменить",
@@ -47,8 +47,8 @@ return [
 
     //flash messages
     "taskStatusCreateSuccess"=> "Статус успешно создан",
-    "taskStatusEditSuccess"=> "Статус успешно изменен",
-    "taskStatusDeleteSuccess"=> "Статус успешно удален",
+    "taskStatusEditSuccess"=> "Статус успешно изменён",
+    "taskStatusDeleteSuccess"=> "Статус успешно удалён",
     "taskStatusDeleteError"=> "Не удалось удалить статус",
     "taskCreateSuccess"=> "Задача успешно создана",
     "taskEditSuccess"=> "Задача успешно изменена",
@@ -68,7 +68,8 @@ return [
     "confirmation"=> "Подтверждение",
     "alreadyRegistered"=> "Уже зарегистрированы?",
     "logOut"=> "Выход",
-    "logIn"=> "Войти",
+    "logIn"=> "Вход",
+    "logIn2"=> "Войти",
     "register"=> "Регистрация",
     "register2"=> "Зарегистрировать",
     "areYouSure"=> "Вы уверены?",
