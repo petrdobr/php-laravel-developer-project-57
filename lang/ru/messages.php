@@ -6,7 +6,6 @@ return [
 
     //task status messages
     "taskStatuses"=> "Статусы",
-    "taskStatus"=> "Статус",
     "createStatus"=> "Создать статус",
     "editStatus"=> "Изменить статус",
     "statusName"=> "Название статуса",
@@ -73,4 +72,5 @@ return [
     "register"=> "Регистрация",
     "register2"=> "Зарегистрировать",
     "areYouSure"=> "Вы уверены?",
+    "profile"=> "Профиль",
 ];
