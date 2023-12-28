@@ -67,7 +67,7 @@ return [
     "name"=> "Имя",
     "confirmation"=> "Подтверждение",
     "alreadyRegistered"=> "Уже зарегистрированы?",
-    "logOut"=> "Выйти",
+    "logOut"=> "Выход",
     "logIn"=> "Войти",
     "register"=> "Регистрация",
     "register2"=> "Зарегистрировать",
