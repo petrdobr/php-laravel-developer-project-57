@@ -33,17 +33,11 @@
                     <!-- Your main content goes here -->
                     <h1><b>Привет от Хекслета!</b></h1>
                     <p>Это простой менеджер задач на Laravel</p>
-                    
-                    <div class="flex-wrap w-40 h-18 border border-black items-center">
-                    <b>Тестовый юзер</b><br>
-                    email: test@t.t <br>
-                    pass: testtest
-                    </div>
-                    <br>
-                    <p>github: </p>
-                    <a href="https://github.com/petrdobr/php-laravel-developer-project-57" class="text-gray-600 hover:text-gray-900">
-                        php-laravel-developer-project-57
-                    </a>
+                    <p>github: 
+                        <a href="https://github.com/petrdobr/php-laravel-developer-project-57" class="text-gray-600 hover:text-gray-900">
+                            php-laravel-developer-project-57
+                        </a>
+                    </p>
                 </div>
             </main>
         </div>

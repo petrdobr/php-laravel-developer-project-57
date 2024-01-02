@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Validator;
 
 class RegisteredUserController extends Controller
 {
@@ -30,11 +31,27 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $messages = [
+            'email.unique' => __('validation.email.unique'),
+            'password.min' => __('validation.password.min'),
+            'password.confirmed' => __('validation.password.confirmed'),
+            'password.wrong' => __('validation.password.wrong')
+        ];
+
+        /*
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'min:8', 'confirmed', Rules\Password::defaults()],
         ]);
+        */
+        
+        Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], $messages)->validate();
+        
 
         $user = User::create([
             'name' => $request->name,
