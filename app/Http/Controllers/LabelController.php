@@ -89,6 +89,8 @@ class LabelController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @param Label $label
      */
     public function destroy(Label $label)
     {
@@ -96,13 +98,11 @@ class LabelController extends Controller
             abort(403);
         }
         $tasks = $label->tasks;
-        if ($label) {
-            if ($tasks->isEmpty()) {
-                $label->delete();
-            } else {
-                flash(__('messages.labelDeleteError'))->error();
-                return redirect()->route('labels.index');
-            }
+        if ($tasks->isEmpty()) {
+            $label->delete();
+        } else {
+            flash(__('messages.labelDeleteError'))->error();
+            return redirect()->route('labels.index');
         }
         flash(__('messages.labelDeleteSuccess'))->success();
         return redirect()->route('labels.index');
