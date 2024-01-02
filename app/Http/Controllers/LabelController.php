@@ -99,7 +99,7 @@ class LabelController extends Controller
         }
 
         $tasks = $label->tasks;
-        
+
         if ($tasks->isEmpty()) {
             $label->delete();
         } else {

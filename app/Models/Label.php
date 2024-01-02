@@ -13,7 +13,7 @@ class Label extends Model
         'name',
         'description',
     ];
-    protected $tasks; 
+    protected $tasks;
 
     public function tasks()
     {
