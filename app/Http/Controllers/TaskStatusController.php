@@ -75,16 +75,15 @@ class TaskStatusController extends Controller
             abort(403);
         }
         $tasks = Task::where('status_id', '=', $taskStatus->id)->get();
-        if ($taskStatus) {
-            if ($tasks->isEmpty()) {
-                $taskStatus->delete();
-            } else {
-                flash(__('messages.taskStatusDeleteError'))->error();
-                return redirect()->route('task_statuses.index');
-            }
+
+        if ($tasks->isEmpty()) {
+            $taskStatus->delete();
+            flash(__('messages.taskStatusDeleteSuccess'))->success();
+            return redirect()->route('task_statuses.index');
+        } else {
+            flash(__('messages.taskStatusDeleteError'))->error();
+            return redirect()->route('task_statuses.index');
         }
-        flash(__('messages.taskStatusDeleteSuccess'))->success();
-        return redirect()->route('task_statuses.index');
     }
 
     public function show()

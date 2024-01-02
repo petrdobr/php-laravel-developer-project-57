@@ -89,7 +89,7 @@ class LabelController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * 
+     *
      * @param Label $label
      */
     public function destroy(Label $label)

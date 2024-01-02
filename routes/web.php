@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Idea is to force https in the form's actions
-if (App::environment('production')) {
+if (App::environment('production') === true) {
     URL::forceScheme('https');
 }
 

@@ -174,9 +174,7 @@ class TaskController extends Controller
             return redirect()->route('tasks.index');
         }
 
-        if ($task) {
-            $task->delete();
-        }
+        $task->delete();
         flash(__('messages.taskDeleteSuccess'))->success();
         return redirect()->route('tasks.index');
     }
