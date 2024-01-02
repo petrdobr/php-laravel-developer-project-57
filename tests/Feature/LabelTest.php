@@ -28,7 +28,7 @@ class LabelTest extends TestCase
 
         $response->assertOk();
     }
-    
+
     public function testCreate(): void
     {
         //test guest cannot create
@@ -137,6 +137,5 @@ class LabelTest extends TestCase
         $this->assertDatabaseHas('labels', [
             'name' => $label->name,
         ]);
-
     }
 }
