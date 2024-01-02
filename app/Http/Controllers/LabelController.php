@@ -98,8 +98,6 @@ class LabelController extends Controller
             abort(403);
         }
 
-        $tasks = $label->tasks;
-
         if (!$label->tasks()->exists()) {
             $label->delete();
             flash(__('messages.labelDeleteSuccess'))->success();
