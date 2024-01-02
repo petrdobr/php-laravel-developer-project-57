@@ -14,7 +14,7 @@ class TaskTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_tasks_page_is_displayed(): void
+    public function testDisplay(): void
     {
         $response = $this->get('/tasks');
 
@@ -40,8 +40,7 @@ class TaskTest extends TestCase
         $response->assertStatus(200);
     }
 
-    
-    public function test_task_can_be_created(): void
+    public function testCreate(): void
     {
         //test guest cannot create
         $taskStatus = TaskStatus::factory()->create();
@@ -55,7 +54,7 @@ class TaskTest extends TestCase
         ]);
 
         $response->assertStatus(403);
-        
+
         //test user can create
         $response = $this
             ->actingAs($user)
@@ -77,13 +76,13 @@ class TaskTest extends TestCase
         ]);
     }
 
-    public function test_task_can_be_updated(): void
+    public function testUpdate(): void
     {
         //test guest cannot update
         $user = User::factory()->create();
         $taskStatus = TaskStatus::factory()->create();
         $label = Label::factory()->create();
-        
+
         $task = Task::factory()->create([
             'status_id' => $taskStatus->id,
             'created_by_id' => $user->id,
@@ -122,7 +121,7 @@ class TaskTest extends TestCase
         $this->assertSame('Test Task', $task->name);
     }
 
-    public function test_task_can_be_deleted(): void
+    public function testDelete(): void
     {
         //test guest cannot delete
         $creator = User::factory()->create();

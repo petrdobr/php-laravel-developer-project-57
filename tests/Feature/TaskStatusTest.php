@@ -13,7 +13,7 @@ class TaskStatusTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_task_statuses_page_is_displayed(): void
+    public function testDisplay(): void
     {
         $response = $this->get('/task_statuses');
 
@@ -28,8 +28,7 @@ class TaskStatusTest extends TestCase
         $response->assertOk();
     }
 
-    
-    public function test_task_status_can_be_created(): void
+    public function testCreate(): void
     {
         //test guest cannot create
         $response = $this
@@ -38,7 +37,7 @@ class TaskStatusTest extends TestCase
         ]);
 
         $response->assertStatus(403);
-        
+
         //test user can create
         $user = User::factory()->make();
 
@@ -57,7 +56,7 @@ class TaskStatusTest extends TestCase
         ]);
     }
 
-    public function test_task_status_can_be_updated(): void
+    public function testUpdate(): void
     {
         //test guest cannot update
         $user = User::factory()->make();
@@ -87,7 +86,7 @@ class TaskStatusTest extends TestCase
         $this->assertSame('Test Status', $taskStatus->name);
     }
 
-    public function test_task_status_can_be_deleted(): void
+    public function testDelete(): void
     {
 
         //test guest cannot delete
@@ -133,6 +132,5 @@ class TaskStatusTest extends TestCase
         $this->assertDatabaseHas('task_statuses', [
             'name' => $taskStatus->name,
         ]);
-
     }
 }
