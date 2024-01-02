@@ -9,11 +9,9 @@
     </div>
         @auth
         <div class="mt-6">
-        <form method="GET" action="{{route('task_statuses.create')}}">
             <x-primary-button>
-                {{ __('messages.createStatus') }}
+                <a href="{{ route('task_statuses.create') }}">{{ __('messages.createStatus') }}</a>  
             </x-primary-button>
-        </form>
         </div>
         @endauth
             <table class="mt-4">
