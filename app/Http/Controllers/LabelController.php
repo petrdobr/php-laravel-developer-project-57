@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Label;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreLabelRequest;
+use App\Http\Requests\UpdateLabelRequest;
 
 class LabelController extends Controller
 {
@@ -32,15 +34,12 @@ class LabelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLabelRequest $request)
     {
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
-        $data = $this->validate($request, [
-            'name' => 'required|unique:labels|min:2',
-            'description' => ''
-        ]);
+        $data = $request->validated();
 
         $label = new Label();
         $label->fill($data);
@@ -73,15 +72,12 @@ class LabelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Label $label)
+    public function update(UpdateLabelRequest $request, Label $label)
     {
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
-        $data = $this->validate($request, [
-            'name' => 'required|unique:task_statuses,name,' . $label->id,
-            'description' => ''
-        ]);
+        $data = $request->validated();
 
         $label->fill($data);
         $label->save();

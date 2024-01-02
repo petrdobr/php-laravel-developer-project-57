@@ -10,6 +10,9 @@ use App\Models\Label;
 use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -78,26 +81,17 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
-        $this->validate($request, [
-            'name' => 'required|unique:tasks|min:2',
-            'status_id' => 'required',
-            'assigned_to_id' => 'required',
-            'labels' => 'required'
-        ]);
-        $data = [
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'status_id' => $request->input('status_id'),
-            'assigned_to_id' => $request->input('assigned_to_id'),
-            'created_by_id' => $request->user()->id,
-        ];
+        $data = $request->validated();
+        $user = Auth::user();
+
         $task = new Task();
         $task->fill($data);
+        $task->created_by()->associate($user);
         $task->save();
 
         $labelIDs = $request->input('labels');
@@ -147,23 +141,14 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
         $id = $task->id;
         $task = Task::findOrFail($id);
-        $data = $this->validate($request, [
-            'name' => 'required|unique:tasks,name,' . $id,
-            'description' => '',
-            'status_id' => 'required',
-            'created_by_id' => 'integer',
-            'assigned_to_id' => 'required',
-        ]);
-        $this->validate($request, [
-            'labels' => 'required'
-        ]);
+        $data = $request->validated();
         $task->fill($data);
         $task->save();
         $task->labels()->detach();

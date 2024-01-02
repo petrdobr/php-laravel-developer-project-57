@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\TaskStatus;
 use App\Models\Task;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreTaskStatusRequest;
+use App\Http\Requests\UpdateTaskStatusRequest;
 
 class TaskStatusController extends Controller
 {
@@ -24,14 +26,12 @@ class TaskStatusController extends Controller
         return view('task_statuses.create', compact('taskStatus'));
     }
 
-    public function store(Request $request)
+    public function store(StoreTaskStatusRequest $request)
     {
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
-        $data = $this->validate($request, [
-            'name' => 'required|unique:task_statuses|min:2'
-        ]);
+        $data = $request->validated();
 
         $taskStatus = new TaskStatus();
         $taskStatus->fill($data);
@@ -52,16 +52,14 @@ class TaskStatusController extends Controller
         return view('task_statuses.edit', compact('taskStatus'));
     }
 
-    public function update(Request $request, TaskStatus $taskStatus)
+    public function update(UpdateTaskStatusRequest $request, TaskStatus $taskStatus)
     {
         if (! Gate::allows('change-entities')) {
             abort(403);
         }
         $id = $taskStatus->id;
         $taskStatus = TaskStatus::findOrFail($id);
-        $data = $this->validate($request, [
-            'name' => 'required|unique:task_statuses,name,' . $taskStatus->id,
-        ]);
+        $data = $request->validated();
 
         $taskStatus->fill($data);
         $taskStatus->save();

@@ -44,16 +44,17 @@ class TaskTest extends TestCase
     public function test_task_can_be_created(): void
     {
         //test guest cannot create
+        $taskStatus = TaskStatus::factory()->create();
+        $user = User::factory()->create();
+        $label = Label::factory()->create();
+
         $response = $this
         ->post('/tasks', [
             'name' => 'Test Status',
+            'status_id' => $taskStatus->id,
         ]);
 
         $response->assertStatus(403);
-        
-        $user = User::factory()->create();
-        $taskStatus = TaskStatus::factory()->create();
-        $label = Label::factory()->create();
         
         //test user can create
         $response = $this
@@ -95,6 +96,7 @@ class TaskTest extends TestCase
         $response = $this
         ->patch('/tasks/' . $id, [
             'name' => 'Test Status',
+            'status_id' => $taskStatus->id,
             'labels' => $label->id,
         ]);
 
