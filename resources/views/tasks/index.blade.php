@@ -58,7 +58,7 @@
                         </td>
                         <td>{{ $task->created_by->name }}</td>
                         <td>{{ $task->assigned_to->name }}</td>
-                        <td>{{ date_format($task->created_at,"d-m-Y") }}</td>
+                        <td>{{ date_format($task->created_at,"d.m.Y") }}</td>
                         @auth
                         <td>
                             <a href="{{ route('tasks.edit', $task) }}" class="text-blue-500 hover:text-blue-700">

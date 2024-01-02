@@ -30,7 +30,7 @@
                     <tr class="border-b border-dashed text-left">
                         <td>{{ $status->id }}</td>
                         <td>{{ $status->name }}</td>
-                        <td>{{ date_format($status->created_at,"d-m-Y") }}</td>
+                        <td>{{ date_format($status->created_at,"d.m.Y") }}</td>
                         @auth
                         <td>
                             <a href="{{ route('task_statuses.edit', $status) }}" class="text-blue-500 hover:text-blue-700">

@@ -32,7 +32,7 @@
                         <td>{{ $label->id }}</td>
                         <td>{{ $label->name }}</td>
                         <td>{{ $label->description }}</td>
-                        <td>{{ date_format($label->created_at,"d-m-Y") }}</td>
+                        <td>{{ date_format($label->created_at,"d.m.Y") }}</td>
                         @auth
                         <td>
                             <a href="{{ route('labels.edit', $label) }}" class="text-blue-500 hover:text-blue-700">
