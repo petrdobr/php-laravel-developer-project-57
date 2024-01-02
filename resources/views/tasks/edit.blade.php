@@ -21,7 +21,7 @@
         <x-input-error :messages="$errors->get('status_id')" class="mt-2" />
     <br>
     {{ Form::label('assigned_to_id', __('messages.taskExecutor'), ['class' => 'block font-medium text-sm text-gray-700 mt-4']) }}
-    {{ Form::select('assigned_to_id', $usersArray, $task->assigned_to_id, [
+    {{ Form::select('assigned_to_id', $usersArray, $task->assignedTo_id, [
         "class" => "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm h-12 block mt-1 max-w-7xl mx-left"
         ]) }}
         <x-input-error :messages="$errors->get('assigned_to_id')" class="mt-2" />
