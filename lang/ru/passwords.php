@@ -1,7 +1,5 @@
 <?php
 
-return [
-
     /*
     |--------------------------------------------------------------------------
     | Password Reset Language Lines
@@ -12,11 +10,10 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
-    'reset' => 'Your password has been reset.',
-    'sent' => 'We have emailed your password reset link.',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
-
-];
+return [
+        'reset'     => 'Ваш пароль был сброшен!',
+        'sent'      => 'Ссылка на сброс пароля была отправлена!',
+        'throttled' => 'Пожалуйста, подождите перед повторной попыткой.',
+        'token'     => 'Ошибочный код сброса пароля.',
+        'user'      => 'Не удалось найти пользователя с указанным электронным адресом.',
+    ];
