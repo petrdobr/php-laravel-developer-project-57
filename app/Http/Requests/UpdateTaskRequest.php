@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateTaskRequest extends FormRequest
 {
-
     public function messages(): array
     {
         return [

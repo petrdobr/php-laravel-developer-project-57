@@ -35,14 +35,14 @@ class TaskController extends Controller
         }
 
         $lastChoise = $request->input('filter') ?? [
-            'status_id' => null, 
-            'created_by_id' => null, 
+            'status_id' => null,
+            'created_by_id' => null,
             'assigned_to_id' => null,
         ];
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
-                AllowedFilter::exact('status_id'), 
-                AllowedFilter::exact('created_by_id'), 
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             ])->paginate(15);
         return view('tasks.index', compact('tasks', 'statusesArray', 'usersArray', 'lastChoise'));
@@ -91,7 +91,7 @@ class TaskController extends Controller
 
         $task = new Task();
         $task->fill($data);
-        $task->created_by()->associate($user);
+        $task->creator()->associate($user);
         $task->save();
 
         $labelIDs = $request->input('labels');

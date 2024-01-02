@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTaskRequest extends FormRequest
 {
-
     public function messages(): array
     {
         return [

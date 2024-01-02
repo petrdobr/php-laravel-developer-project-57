@@ -22,14 +22,14 @@ class Task extends Model
         'assigned_to_id',
     ];
 
-    public function created_by()
+    public function creator()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'created_by_id');
     }
 
-    public function assigned_to()
+    public function assignedTo()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'assigned_to_id');
     }
 
     public function status()

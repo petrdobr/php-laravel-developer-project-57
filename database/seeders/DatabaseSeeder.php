@@ -37,13 +37,13 @@ class DatabaseSeeder extends Seeder
         )->create();
 
         Task::factory()->count(16)->sequence(
-            fn() => ['status_id' => rand(1, 4), 'created_by_id' => rand(1, 10), 'assigned_to_id' => rand(1,10)]
+            fn() => ['status_id' => rand(1, 4), 'created_by_id' => rand(1, 10), 'assigned_to_id' => rand(1, 10)]
         )->create();
 
         //create many-to-many relation between labels and tasks
         $labels = Label::all();
-        Task::all()->each(function ($task) use ($labels) { 
-            $task->labels()->attach($labels->random(rand(1, 3))->pluck('id')->toArray()); 
+        Task::all()->each(function ($task) use ($labels) {
+            $task->labels()->attach($labels->random(rand(1, 3))->pluck('id')->toArray());
         });
     }
 }
