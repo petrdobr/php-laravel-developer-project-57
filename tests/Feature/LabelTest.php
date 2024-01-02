@@ -14,7 +14,7 @@ class LabelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_labels_page_is_displayed(): void
+    public function testDisplay(): void
     {
         $response = $this->get('/labels');
 
@@ -28,9 +28,8 @@ class LabelTest extends TestCase
 
         $response->assertOk();
     }
-
     
-    public function test_labels_can_be_created(): void
+    public function testCreate(): void
     {
         //test guest cannot create
         $response = $this
@@ -40,7 +39,7 @@ class LabelTest extends TestCase
         ]);
 
         $response->assertStatus(403);
-        
+
         //test user can create
         $user = User::factory()->make();
 
@@ -60,7 +59,7 @@ class LabelTest extends TestCase
         ]);
     }
 
-    public function test_labels_can_be_updated(): void
+    public function testUpdate(): void
     {
         $user = User::factory()->make();
         $label = Label::factory()->create();
@@ -90,7 +89,7 @@ class LabelTest extends TestCase
         $this->assertSame('Test Status', $label->name);
     }
 
-    public function test_label_can_be_deleted(): void
+    public function testDelete(): void
     {
 
         //test guest cannot delete label
