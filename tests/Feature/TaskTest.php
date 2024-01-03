@@ -51,6 +51,9 @@ class TaskTest extends TestCase
         ->post('/tasks', [
             'name' => 'Test Status',
             'status_id' => $taskStatus->id,
+            'created_by_id' => $user->id,
+            'assigned_to_id' => $user->id,
+            'labels' => $label->id,
         ]);
 
         $response->assertStatus(403);
